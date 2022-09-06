@@ -76,12 +76,12 @@ public class Program {
     /**
      * This runs every frame.
      * @param pixels the pixel panel for making graphics go burr
-     * @param timeEllapsed time ellapsed since last frame
+     * @param timeElapsed time elapsed since last frame
      * @param programLogic the Logic object that make all the logical stuff happen
      */
-    private void onUserUpdate(PixelPanel pixels, long timeEllapsed, Logic programLogic){
+    private void onUserUpdate(PixelPanel pixels, long timeElapsed, Logic programLogic){
         if(timeSinceLastUpdate < FRAME_TIME){
-            timeSinceLastUpdate += timeEllapsed;
+            timeSinceLastUpdate += timeElapsed;
         } else {
             timeSinceLastUpdate = 0;
             Pair coords;

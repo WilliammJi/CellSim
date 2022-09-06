@@ -7,7 +7,7 @@ import Util.Pair;
 
 /**
  * This little bugger handles the creation of the cells on the board and the running of
- * their logica
+ * their logic
  */
 
 public class Logic {
@@ -17,7 +17,7 @@ public class Logic {
     private Calculator calc; //helpful calculator
 
     /**
-     * THE CONSTRUCTOR. Sets the instance variables up, and starts to intilize the boy
+     * THE CONSTRUCTOR. Sets the instance variables up, and starts to intialize the boy
      * @param width
      * @param height
      */
@@ -33,16 +33,16 @@ public class Logic {
      * Puts cells on the board.
      */
     private void initialize(){
-        double rngNum =0;
+        double rngNum;
         for(int i =0; i < width*height; i++){
             rngNum = Math.random()*100;
-            if (rngNum < 90.0){
-                cellList.add(new TissueCell(calc.coordFromIndex(i)));
+            if (rngNum >= 10.0 && rngNum < 90.0){
+                cellList.add(new TissueCell(calc.coordFromIndex(i).getX(), calc.coordFromIndex(i).getY()));
             }
             else if (rngNum >= 90.0 && rngNum < 99.0){
-                cellList.add(new ImmuneCell(calc.coordFromIndex(i)));
+                cellList.add(new ImmuneCell(calc.coordFromIndex(i).getX(), calc.coordFromIndex(i).getY()));
             } else {
-                cellList.add(new CancerCell(calc.coordFromIndex(i)));
+                cellList.add(new CancerCell(calc.coordFromIndex(i).getX(), calc.coordFromIndex(i).getY()));
             }
         }
     }
@@ -52,7 +52,7 @@ public class Logic {
      */
     public void timeStep(){
         for(Cell c : cellList){
-            c.interactNeighbors(cellList);
+            c.interactNeighbours(cellList);
         }
     }
 
