@@ -34,15 +34,18 @@ public class Logic {
      */
     private void initialize(){
         double rngNum;
-        for(int i =0; i < width*height; i++){
+        for (int i =0; i < width*height; i++){
             rngNum = Math.random()*100;
-            if (rngNum >= 10.0 && rngNum < 90.0){
-                cellList.add(new TissueCell(calc.coordFromIndex(i).getX(), calc.coordFromIndex(i).getY()));
+            if(rngNum < 90.0){
+                cellList.add
+                        (new TissueCell(0, calc.coordFromIndex(i).getX(), calc.coordFromIndex(i).getY(), 1));
             }
-            else if (rngNum >= 90.0 && rngNum < 99.0){
-                cellList.add(new ImmuneCell(calc.coordFromIndex(i).getX(), calc.coordFromIndex(i).getY()));
-            } else {
-                cellList.add(new CancerCell(calc.coordFromIndex(i).getX(), calc.coordFromIndex(i).getY()));
+            else if(rngNum >= 90.0 && rngNum < 99.0){
+                cellList.add
+                        (new ImmuneCell(3, calc.coordFromIndex(i).getX(), calc.coordFromIndex(i).getY(), 4));
+            } else{
+                cellList.add
+                        (new CancerCell(1, calc.coordFromIndex(i).getX(), calc.coordFromIndex(i).getY(), 3));
             }
         }
     }

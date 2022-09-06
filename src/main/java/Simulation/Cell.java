@@ -12,7 +12,7 @@ import java.util.HashSet;
  */
 
 public class Cell {
-    protected static Calculator calc;
+    protected Calculator CellCalc = new Calculator(100, 100);
     protected int strength;
     private int x;
     private int y;
@@ -93,8 +93,14 @@ public class Cell {
     //}
     //}
 
-    public void interactNeighbours(ArrayList<Cell> AdjCells){
-
+    public void interactNeighbours(ArrayList<Cell> cellList){
+        for (Cell c : cellList){
+            if((c.getX() - this.getX() >= -1) || (c.getX() - this.getX() <= 1)) {
+                if((c.getY() - this.getY() >= -1) || (c.getY() - this.getY() <= 1)) {
+                    AdjCells.add(c);
+                }
+            }
+        }
     }
 
 }

@@ -19,45 +19,90 @@ import java.util.ArrayList;
  */
 
 public class CancerCell extends Cell{
-    public CancerCell(int x, int y){
+    public CancerCell(int strength, int x, int y, int id){
         super(1, x, y, 3);
     }
+
+    private Calculator calcCancer = new Calculator(100, 100);
 
     @Override
     public void interactNeighbours(ArrayList<Cell> cellList){
         ArrayList<Cell> CancerAdjCells = new ArrayList<Cell>();
-
-        for(Cell c : cellList){
-            if((c.getX() - this.getX() >= -1) || (c.getX() - this.getX() <= 1)){
-                if ((c.getY() - this.getY() >= -1) || (c.getY() - this.getY() <= 1)){
-                    CancerAdjCells.add(c);
-                }
-            }
-        }
-
+        AdjCells = new ArrayList<Cell>();
         int countTissueAdj = 0;
         int countImmuneAdj = 0;
-        for(Cell c : CancerAdjCells){
-            if(c.getID() == 1) {
-                countTissueAdj++;
-            }
-            if(c.getID() == 4) {
-                countImmuneAdj++;
+
+        for (Cell c : cellList){
+            if((c.getX() - this.getX() >= -1) && (c.getX() - this.getX() <= 1)) {
+                if((c.getY() - this.getY() >= -1) && (c.getY() - this.getY() <= 1)) {
+                    AdjCells.add(c);
+                    if(c.getID() == 1) {
+                        countTissueAdj++;
+                    }
+                    if(c.getID() == 4) {
+                        countImmuneAdj++;
+                    }
+                }
             }
         }
 
-        for(Cell c : CancerAdjCells){
-            if(c.getID() == 4) {
-                while (c.getStrength() > 0) {
-                    c.setStrength(c.getStrength() - 1);
-                }
-                cellList.set(Calculator.indexFromCoord(c.getX(), c.getY()), new DeadCell(c.getX(), c.getY()));
-            }
+//        for (Cell c : cellList){
+            //if((c.getX() - this.getX() >= -1) || (c.getX() - this.getX() <= 1)){
+              //  if((c.getY() - this.getY() >= -1) || (c.getY() - this.getY() <= 1)){
+                    //AdjCells.add(c);
+
+//                    if(c.getID() == 1) {
+//                        countTissueAdj++;
+//                    }
+//                    if(c.getID() == 4) {
+//                        countImmuneAdj++;
+//                    }
+
+//                    if(c.getID() == 0) {
+//                        cellList.set(Calculator.indexFromCoord(c.getX(), c.getY()),
+//                                new CancerCell(1, c.getX(), c.getY(), 3));
+//                    }
+//                    else if((countTissueAdj > countImmuneAdj) && (c.getID() == 1)){
+//                        cellList.set(Calculator.indexFromCoord(c.getX(), c.getY()),
+//                                new DeadCell(0, c.getX(), c.getY(), 0));
+//                    }
+//                    else if(c.getID() == 4) {
+//                        if (c.getStrength() > 0) {
+//                            c.setStrength(c.getStrength() - 1);
+//                        } else{
+//                            cellList.set(Calculator.indexFromCoord(c.getX(), c.getY()),
+//                                    new DeadCell(0, c.getX(), c.getY(), 0));
+//                        }
+//                    }
+               // }
+            //}
+ //       }
+
+//        for (Cell c : AdjCells){
+//            if(c.getID() == 1) {
+//                countTissueAdj++;
+//            }
+//            if(c.getID() == 4) {
+//                countImmuneAdj++;
+//            }
+//        }
+
+        for (Cell c : AdjCells){
             if(c.getID() == 0) {
-                cellList.set(Calculator.indexFromCoord(c.getX(), c.getY()), new CancerCell(c.getX(), c.getY()));
+                cellList.set(Calculator.indexFromCoord(c.getX(), c.getY()),
+                        new CancerCell(1, c.getX(), c.getY(), 3));
             }
-            if((countTissueAdj > countImmuneAdj) && (c.getID() == 1)){
-                cellList.set(Calculator.indexFromCoord(c.getX(), c.getY()), new DeadCell(c.getX(), c.getY()));
+            else if((countTissueAdj > countImmuneAdj) && (c.getID() == 1)){
+                cellList.set(Calculator.indexFromCoord(c.getX(), c.getY()),
+                        new DeadCell(0, c.getX(), c.getY(), 0));
+            }
+            else if(c.getID() == 4) {
+                if (c.getStrength() > 0) {
+                    c.setStrength(c.getStrength() - 1);
+                } else{
+                    cellList.set(Calculator.indexFromCoord(c.getX(), c.getY()),
+                            new DeadCell(0, c.getX(), c.getY(), 0));
+                }
             }
         }
     }
